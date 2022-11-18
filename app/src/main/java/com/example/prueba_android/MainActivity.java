@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +44,32 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent navigatePage;
+        switch (item.getItemId()) {
+            case R.id.itemActivityMain1:
+                Toast.makeText(this, "Activity1", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.itemActivityMain2:
+                navigatePage = new Intent(getApplicationContext(), MainActivity2.class);
+                Bundle dataSend = new Bundle();
+                navigatePage.putExtras(dataSend);
+                navigatePage.addFlags(navigatePage.FLAG_ACTIVITY_CLEAR_TASK | navigatePage.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(navigatePage);
+                // Toast.makeText(this, "Activity2", Toast.LENGTH_LONG).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
